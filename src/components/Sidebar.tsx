@@ -3,9 +3,8 @@
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { signOut,getUser } from "@/app/api/auth/auth";
-import { User } from "@/app/api/auth/types";
-import { useEffect,useState } from "react";
+import { signOut } from "@/app/api/auth/provider";
+import { useSessionQuery } from "@/app/api/auth/query";
 
 import {
   LayoutDashboard,
@@ -18,25 +17,11 @@ import {
 import { Button } from "./ui/button";
 
 export default function Sidebar() {
+  const { data } = useSessionQuery();
+
   const pathname = usePathname();
   const router = useRouter();
   const isActive = (path: string) => pathname === path;
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    async function fetchUser() {
-      const { user, error } = await getUser();
-      if (error) 
-      {
-        setUser(null);
-      } 
-      else 
-      {
-        setUser(user);
-      }
-  }
-  fetchUser();
-}, []);
 
   const navItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -100,10 +85,10 @@ export default function Sidebar() {
           />
           <div className="min-w-0">
             <p className="text-white font-semibold text-sm md:text-base truncate">
-              {user?.name || "Guest"}
+              {data?.session?.name || "Guest"}
             </p>
             <p className="text-gray-400 text-xs md:text-sm truncate">
-              {user?.email || "guest@example.com"}
+              {data?.session?.email || "guest@example.com"}
             </p>
           </div>
         </div>
