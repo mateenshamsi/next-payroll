@@ -26,7 +26,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${raleway.variable} antialiased`}>
         <AppThemeProvider>
-
           <QueryProvider>
             {children}
             <Toaster position="top-center" />
