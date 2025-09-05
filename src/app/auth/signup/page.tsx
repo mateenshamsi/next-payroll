@@ -36,22 +36,18 @@ export default function SignupPage() {
 
     const defaultName = email.split("@")[0] || "New User";
 
-    console.log("Attempting signup:", { name: defaultName, email });
+    
 
     signUpMutation.mutate(
       { name: defaultName, email, password },
       {
         onSuccess: (data: SignUpResponse) => {
 
-          console.log("Signup success data:", data);
-
-          if (data.user && !data.error) {
             toast.success("Signup successful!");
 
             router.push("/auth/login");
-          } else if (data.error) {
-            toast.error(data.error.message);
-          }
+
+     
         },
         onError: (err: ApiError) => {
           console.error("Signup mutation error:", err);
