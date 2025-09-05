@@ -42,11 +42,11 @@ export default function SignupPage() {
       { name: defaultName, email, password },
       {
         onSuccess: (data: SignUpResponse) => {
-
+            if(!data.error){
             toast.success("Signup successful!");
 
             router.push("/auth/login");
-
+            }
      
         },
         onError: (err: ApiError) => {
