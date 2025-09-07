@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { SignUpResponse, ApiError } from "@/app/api/auth/types";
+import { Label } from "@/components/ui/label";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -58,16 +59,25 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
-      <div className="w-full max-w-sm p-8 rounded-lg shadow-lg bg-white">
-        <div className="flex flex-col items-center mb-6">
+  <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
+      <div className="flex-1 flex items-center justify-center p-4 md:p-8 relative">
+            <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg relative z-10">
+          <div className="flex flex-col items-center mb-6"></div>
+        <div className="flex flex-col items-center">
           <Image src={"/logo.png"} alt="Next Pay Logo" width={120} height={40} />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">Get Started</h1>
-        <p className="text-gray-600 mb-6 text-sm">
+        <h1 className="text-3xl font-bold text-gray-900  text-center">Get Started</h1>
+        <p className="text-gray-600 mb-6 text-sm text-center">
   Welcome to Next Pay, let&apos;s create your account
         </p>
-        <form onSubmit={handleSignUp} className="space-y-4">
+        <form onSubmit={handleSignUp} className="space-y-6">
+          <div>
+           <Label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 "
+              >
+                Email
+              </Label>
           <Input
             type="email"
             id="email"
@@ -78,9 +88,15 @@ export default function SignupPage() {
             placeholder="Your email"
             className="border-gray-300 focus:border-green-500 focus:ring-green-500"
           />
-
-          <div className="relative flex items-center justify-between">
-
+          </div>
+          <div>
+          <Label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 "
+          >
+            Password
+          </Label>
+          <div className="relative">
             <Input
               id="password"
               type={showPassword ? "text" : "password"}
@@ -88,7 +104,6 @@ export default function SignupPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-
               className="pr-10 border-gray-300 focus:border-green-500 focus:ring-green-500"
             />
             {showPassword ? (
@@ -103,10 +118,15 @@ export default function SignupPage() {
               />
             )}
           </div>
-
+            </div>
+            <div>
+          <Label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Confirm Password
+          </Label>
           <div className="relative">
-
-
             <Input
               id="confirmPassword"
               type={showConfirmPassword ? "text" : "password"}
@@ -114,7 +134,6 @@ export default function SignupPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-
               className="pr-10 border-gray-300 focus:border-green-500 focus:ring-green-500"
             />
             {showConfirmPassword ? (
@@ -131,6 +150,7 @@ export default function SignupPage() {
 
             )}
           </div>
+          </div>
           <Button type="submit"   className="w-full py-2 rounded-md font-semibold text-white
                          bg-gradient-to-r from-green-800 to-green-600
                          hover:from-green-700 hover:to-green-500
@@ -142,6 +162,19 @@ export default function SignupPage() {
         <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account? <Link href="/auth/login" className="font-semibold text-blue-600 hover:underline">Login</Link>
         </p>
+      </div>
+      </div>
+          <div className="hidden md:flex md:w-2/5 bg-gradient-to-br from-green-900 to-black rounded-l-3xl p-8 items-center justify-center relative overflow-hidden">
+        <div className="text-white text-center md:text-left">
+          <h1 className="font-extrabold text-4xl lg:text-5xl xl:text-6xl leading-tight">
+            Enter
+            <span className="block">the Future</span>
+            <span className="block"> of Payments,</span>
+            <span className="block">today</span>
+          </h1>
+        </div>
+        <div className="absolute -bottom-20 -right-20 w-60 h-60 rounded-full bg-green-700 opacity-20 filter blur-3xl"></div>
+        <div className="absolute top-10 -left-10 w-40 h-40 rounded-full bg-green-500 opacity-15 filter blur-3xl"></div>
       </div>
     </div>
   );
